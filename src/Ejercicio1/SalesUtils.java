@@ -2,7 +2,7 @@ package Ejercicio1;
 
 public final class SalesUtils {
 
-    public static final double META_SEMANAL = 10000.0;
+    public static final double WEEK_GOAL = 10000.0;
 
     private SalesUtils() {}
 
@@ -33,7 +33,7 @@ public final class SalesUtils {
         System.out.printf("Mejor día: %s (%2.2f) \n", worseSellDay, sells[minIdx]);
         System.out.printf("Dias por encima del promedio: %d \n", bestSellDays);
 
-        final double goalSellDifference = (totalWeekSells - META_SEMANAL);
+        final double goalSellDifference = (totalWeekSells - WEEK_GOAL);
         final String finalMessage = goalSellDifference > 0 ? "Meta cumplida. Superaste la meta por: %2.2f" : "Meta no cumplida. faltó: (%2.2f)";
         System.out.printf(finalMessage, goalSellDifference);
     }
