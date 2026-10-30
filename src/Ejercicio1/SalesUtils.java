@@ -4,7 +4,8 @@ public final class SalesUtils {
 
     public static final double WEEK_GOAL = 10000.0;
 
-    private SalesUtils() {}
+    private SalesUtils() {
+    }
 
     public static void printResultTable(String[] weekDays, double[] sells) {
         System.out.println("=== REPORTE DE VENTAS SEMANAL ===");
@@ -23,8 +24,8 @@ public final class SalesUtils {
 
         System.out.println("---------------------------------");
         final double totalWeekSells = calculateTotal(sells);
-        System.out.printf("Total semanal: %2.2f \n",  totalWeekSells);
-        System.out.printf("Promedio diario: %2.2f \n",  dayAverage);
+        System.out.printf("Total semanal: %2.2f \n", totalWeekSells);
+        System.out.printf("Promedio diario: %2.2f \n", dayAverage);
         final int maxIdx = getIndex(sells, true);
         final String bestSellDay = weekDays[maxIdx];
         System.out.printf("Mejor día: %s (%2.2f) \n", bestSellDay, sells[maxIdx]);
@@ -39,18 +40,30 @@ public final class SalesUtils {
     }
 
 
-    private static double calculateTotal(double[] values){
+    private static double calculateTotal(double[] values) {
 
         double total = 0;
-        for (double value : values){
+        for (double value : values) {
             total += value;
         }
 
         return total;
     }
 
-    private static double calculateAverage(double[] values){
-        return calculateTotal(values)/values.length;
+    private static double calculateAverage(double[] values) {
+        return calculateTotal(values) / values.length;
+    }
+
+
+    private static String classify(double sell, double average) {
+        if (sell >= average * 1.2) {
+            return "ALTA";
+        } else if (sell < average * 0.8) {
+            return "BAJA";
+        }
+
+        return "NORMAL";
+
     }
 
     /**
@@ -63,7 +76,7 @@ public final class SalesUtils {
      * @author Emilio Vargas
      * @author ChatGPT (OpenAI) - Method design assistance
      */
-    private static int getIndex(double[] values, boolean getMax){
+    public static int getIndex(double[] values, boolean getMax){
         int idx = 0;
         for (int i = 0; i < values.length; i++) {
             if (getMax ? values[i] > values[idx] : values[i] < values[idx]){
@@ -72,16 +85,5 @@ public final class SalesUtils {
         }
 
         return idx;
-    }
-
-    private static String classify(double sell, double average) {
-        if (sell >= average * 1.2) {
-            return "ALTA";
-        } else if (sell < average * 0.8) {
-            return "BAJA";
-        }
-
-        return "NORMAL";
-
     }
 }
