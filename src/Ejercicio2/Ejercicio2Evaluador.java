@@ -40,11 +40,12 @@ public class Ejercicio2Evaluador {
         }
 
         int[] order = getInitalOrderArray(grades.length);
-        order = bubbleSortOrderArrayByAvg(order, studentsAverages);
+        order = bubbleSortOrder(order, studentsAverages, true);
 
+        System.out.println();
         System.out.println("=== RANKING ===");
         for (int p = 0; p < students.length; p++) {
-            System.out.printf("%d. %s %f \n", p+1, students[order[p]], studentsAverages[order[p]]);
+            System.out.printf("%d. %s %12.2f \n", p+1, students[order[p]], studentsAverages[order[p]]);
         }
 
     }

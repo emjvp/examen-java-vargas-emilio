@@ -49,7 +49,7 @@ public final class EvaluatorUtils {
             double wAverage = calculateWeightedAverage(grades[i], weights);
             averages[i] = wAverage;
             states[i] = evaluate(averages[i], attendance[i]);
-            System.out.printf("%s %15.2f %10.0f%% %s \n",  students[i], wAverage, attendance[i] * 100, states[i]);
+            System.out.printf("%s %16.2f %10.0f%%      %s \n",  students[i], wAverage, attendance[i] * 100, states[i]);
             switch (states[i]) {
                 case APROBADO: approved++; break;
                 case RECUPERACION: recover++; break;
@@ -103,20 +103,40 @@ public final class EvaluatorUtils {
         return order;
     }
 
-    static int[] bubbleSortOrderArrayByAvg(int [] orderParam, double[] averages) {
+    static int[] invertedBubbleSortOrderArrayByAvg(int [] orderParam, double[] averages) {
 
         int [] order = orderParam.clone();
         for (int i = 0; i < order.length - 2; i++) {
             for (int j = 0; j < order.length - 2 - j; j++) {
+
                 if (averages[order[j]] < averages[order[j + 1]]) {
                     int temp = order[j];
                     order[j] = order[j + 1];
                     order[j + 1] = temp;
                 }
 
+
             }
         }
 
         return order;
     }
+
+    static int[] bubbleSortOrder(int [] orderParam, double[] averages, boolean invertedOrder) {
+
+        int [] order = orderParam.clone();
+        for (int i = 0; i < order.length; i++) {
+            for (int j = i + 1; j < order.length; j++) {
+                if (invertedOrder ? averages[order[i]] < averages[order[j]] : averages[order[i]] > averages[order[j]]) {
+                    int swap = order[i];
+                    order[i] = order[j];
+                    order[j] = swap;
+                }
+            }
+        }
+
+        return order;
+    }
+
+
 }
